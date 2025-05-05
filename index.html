@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vectis U14 Players' Player Vote</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+    }
+    .photo {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      object-fit: cover;
+      max-height: 400px;
+    }
+    .blurb {
+      background: #f1f8ff;
+      padding: 15px;
+      border-left: 4px solid #0077cc;
+      margin-bottom: 25px;
+      border-radius: 8px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, textarea, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      margin-top: 25px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vectis U14 Players' Player Vote</h1>
+  <img src="vectis.jpg" alt="Team Photo" class="photo" />
+
+  <div class="blurb">
+    <p><strong>Vote for the Vectis U14 Players’ Player of the Season</strong></p>
+    <p>It’s time to vote for the teammate you feel has best represented what it means to be part of this team.</p>
+    <p>You’ll be asked to choose your <strong>1st</strong>, <strong>2nd</strong>, and <strong>3rd</strong> choices — and give a short reason for each. These should be the players you’re always glad to have on your side: those who show commitment, sportsmanship, and lead by example on and off the pitch.</p>
+    <p>As you consider your vote, think about the <strong style="color:#cc0000">five core values of rugby</strong>:<br>
+      <strong style="color:#005fa3">Teamwork</strong>, <strong style="color:#005fa3">Respect</strong>, <strong style="color:#005fa3">Enjoyment</strong>, <strong style="color:#005fa3">Discipline</strong>, and <strong style="color:#005fa3">Sportsmanship</strong>.</p>
+    <p>Votes are <strong>named</strong>, so please take care and be thoughtful in your selections. Every vote counts!</p>
+  </div>
+
+  <label for="name">Your Name:</label>
+  <input type="text" id="name" />
+
+  <label for="first">1st Choice:</label>
+  <select id="first"></select>
+  <label for="reason1">Reason:</label>
+  <textarea id="reason1" rows="2"></textarea>
+
+  <label for="second">2nd Choice:</label>
+  <select id="second"></select>
+  <label for="reason2">Reason:</label>
+  <textarea id="reason2" rows="2"></textarea>
+
+  <label for="third">3rd Choice:</label>
+  <select id="third"></select>
+  <label for="reason3">Reason:</label>
+  <textarea id="reason3" rows="2"></textarea>
+
+  <button onclick="submitForm()">Submit</button>
+
+  <script>
+    const players = [
+      "Adam Hutchinson", "Albert White", "Alfie Horsler", "Archie Tyler", "Blake Mawer",
+      "Charlie Coghlan", "Charlie Flux", "James Burt", "James Redpath", "Joseph Fox",
+      "Josh Styles", "Joshua Ward", "Jude Walton", "Oliver King", "Oliver McGinness",
+      "Oliver Whitehouse", "Oscar Woodcock", "Otis Ripley", "Rory Brown", "Rory Hillier",
+      "Seth Dubyk", "Toby Moles", "Tom Dempsey"
+    ];
+
+    const populateDropdown = (id) => {
+      const sel = document.getElementById(id);
+      players.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = p;
+        sel.appendChild(opt);
+      });
+    };
+
+    ['first', 'second', 'third'].forEach(populateDropdown);
+
+    function submitForm() {
+      const name = document.getElementById('name').value.trim();
+      const first = document.getElementById('first').value;
+      const reason1 = document.getElementById('reason1').value.trim();
+      const second = document.getElementById('second').value;
+      const reason2 = document.getElementById('reason2').value.trim();
+      const third = document.getElementById('third').value;
+      const reason3 = document.getElementById('reason3').value.trim();
+
+      if (!name || !first || !reason1 || !second || !reason2 || !third || !reason3) {
+        alert("Please complete all fields before submitting.");
+        return;
+      }
+
+      const base = "https://docs.google.com/forms/d/e/1FAIpQLSccYDH5u3TPJ6BA_Selrf2zyV0aYTO3Q-o0iu38ggcTFkl5rA/viewform?usp=pp_url";
+      const params = new URLSearchParams({
+        "entry.125764849": name,
+        "entry.512534201": first,
+        "entry.1125526044": reason1,
+        "entry.832665786": second,
+        "entry.1407292400": reason2,
+        "entry.1479245023": third,
+        "entry.1461470378": reason3
+      });
+
+      window.location.href = `${base}&${params.toString()}`;
+    }
+  </script>
+</body>
+</html>
